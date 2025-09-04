@@ -10,9 +10,26 @@ class PDFPatternLocation:
         self.x1 = max(x0, x1)
         self.y1 = max(y0, y1)
 
-def detect_circuit(pdf_doc: fitz.Document, threshold = 0.7, dpi = 300):
-    predictor = setup_predictor(weight_path = "models/mechanic/circuit.pth", config_path = "models/mechanic/circuit.pickle", threshold = threshold)
+MODEL_PATHS = {
+    "mechanic": {
+        "weight": "models/mechanic/circuit.pth",
+        "config": "models/mechanic/circuit.pickle",
+    },
+    "electron": {
+        "weight": "models/electron/symbol.pth",
+        "config": "models/electron/symbol.pickle",
+    }
+}
 
+def detect_circuit(pdf_doc: fitz.Document, threshold = 0.7, dpi = 300, model = "mechanic"):
+    if model not in MODEL_PATHS:
+        raise ValueError("model must be mechanic or electron")
+
+    weight_path = MODEL_PATHS[model]["weight"]
+    config_path = MODEL_PATHS[model]["config"]
+
+    predictor = setup_predictor(weight_path = weight_path, config_path = config_path, threshold = threshold)
+    
     results: list[PDFPatternLocation] = [] # store all the predict result
 
     for i in range(pdf_doc.page_count):
