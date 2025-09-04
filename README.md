@@ -15,8 +15,8 @@ pip install -r requirements.txt
 
 ### download manually
 
-you can downloa pth files manually from [GitHub Releases](https://github.com/CHENMENG-HAN/circuit-detection/releases)\
-and place the files in (`models/mechanic`) or (`models/electron`)
+you can download `pth` files manually from [GitHub Releases](https://github.com/CHENMENG-HAN/circuit-detection/releases)\
+and place the `circuit.pth` in (`models/mechanic`) and `symbol.pth` in (`models/electron`)
 
 ## Usage
 
